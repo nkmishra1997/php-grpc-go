@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package restaurant;
+
+
+service RestaurantService {
+    // Create a new restaurant.
+    rpc CreateRestaurant(Restaurant) returns (RestaurantId) {}
+
+    // Read a given restaurant by rest_id
+    rpc ReadRestaurant(RestaurantId) returns (Restaurant) {}
+
+    // Update the details of given Restaurant
+    rpc UpdateRestaurant (Restaurant) returns (Status) {}
+
+    // Delete Restaurant based on rest_id
+    rpc DeleteRestaurant (RestaurantId) returns (Status) {}
+
+    // Get all restaurants
+    rpc GetAllRestaurants(Empty) returns (stream Restaurant) {}
+}
+
+message Restaurant {
+    int32 rest_id = 1;
+    string name = 2;
+    float rating = 3;
+    string cuisines = 4;
+    string address = 5;
+    string timing = 6;
+    int32 cft = 7;
+}
+
+message RestaurantId {
+    int32 rest_id = 1;
+}
+
+message Status {
+    bool success = 1;
+}
+
+message Empty {}
