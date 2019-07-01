@@ -2,8 +2,7 @@
 FROM golang:1.8
 
 LABEL maintainer="Nikhil Mishra <nikhil.mishra@zomato.com>"
-
-WORKDIR $GOPATH/src/github.com/nkmishra1997/php-grpc-go
+WORKDIR $GOPATH/src/github.com/nkmishra1997/php-grpc-go/server
 
 COPY . .
 

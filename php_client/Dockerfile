@@ -7,24 +7,25 @@ WORKDIR .
 COPY . .
 
 # RUN apt-get update && apt-get install phpunit php-pear
-RUN apt-get update && apt-get install -y zlib1g-dev
+RUN apt-get update && apt-get install -y libz-dev zip unzip
 
 # install composer
 RUN cd /usr/local/bin && curl -sS https://getcomposer.org/installer | php
 RUN cd /usr/local/bin && mv composer.phar composer
+RUN composer install
 
 RUN pecl install grpc
 
 #install protoc
-RUN apt-get update && \
-    apt-get -y install git unzip build-essential autoconf libtool
-RUN mkdir -p /tmp/protoc && \
-    curl -L https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip > /tmp/protoc/protoc.zip && \
-    cd /tmp/protoc && \
-    unzip protoc.zip && \
-    cp /tmp/protoc/bin/protoc /usr/local/bin && \
-    cd /tmp && \
-    rm -r /tmp/protoc && \
-    docker-php-ext-enable grpc
+# RUN apt-get update && \
+#     apt-get -y install git unzip build-essential autoconf libtool
+# RUN mkdir -p /tmp/protoc && \
+#     curl -L https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip > /tmp/protoc/protoc.zip && \
+#     cd /tmp/protoc && \
+#     unzip protoc.zip && \
+#     cp /tmp/protoc/bin/protoc /usr/local/bin && \
+#     cd /tmp && \
+#     rm -r /tmp/protoc && \
+#     docker-php-ext-enable grpc
 
 CMD [ "php", "./index.php" ]
