@@ -221,17 +221,13 @@ func (s *RestaurantServiceServer) GetAllRestaurants(req *pb.Empty, stream pb.Res
 	return nil
 }
 
-/*
-CREATE TABLE `Restaurant` ( `rest_id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(200) NULL DEFAULT NULL , `rating` FLOAT NULL DEFAULT NULL , `cuisines` VARCHAR(500) NULL DEFAULT NULL , `address` VARCHAR(500) NULL DEFAULT NULL , `timing` VARCHAR(200) NULL DEFAULT NULL , `cft` INT NULL DEFAULT NULL , PRIMARY KEY (`rest_id`));
-*/
-
 //CmdRunServer Connect to DB, set up GRPC Server
 func CmdRunServer() error {
 	ctx := context.Background()
 
 	// add MySQL driver specific parameter to parse date/time
 	// Drop it for another database
-	db, err := sql.Open("mysql", "root:Nikhil1604*@tcp(127.0.0.1:3306)/test")
+	db, err := sql.Open("mysql", "docker:docker@tcp(db:3306)/RestaurantDB")
 	if err != nil {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
